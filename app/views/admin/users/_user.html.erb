@@ -9,6 +9,10 @@
     <%= link_to "View Details", user, class: "btn btn-primary" %> &nbsp;
   </th>
   <th>
+    <%= link_to "Courses Assigned", user_courses_path(user),
+                                    class: "btn btn-primary" %>
+  </th>
+  <th>
     <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-primary" %>
     &nbsp;
   </th>

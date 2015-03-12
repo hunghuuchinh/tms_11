@@ -21,7 +21,10 @@ class Admin::AssignmentsController < ApplicationController
   def assignable_course
     @course = Course.find params[:course_id]
     if !@course.end_at.nil?
-      flash[:success] = "Course is finished! Cannot assign member"
+      flash[:danger] = "Course is finished! Cannot assign member"
+      redirect_to admin_course_path(@course)
+    elsif !@course.begin_at.nil?
+      flash[:danger] = "Course is in training progress! Cannot assign member"
       redirect_to admin_course_path(@course)
     end
   end

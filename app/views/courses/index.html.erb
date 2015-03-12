@@ -4,23 +4,17 @@
 <table class="table">
   <div class="course">
     <thead>
-      <tr>
-        <th>Course Name</th>
-        <th>Description</th>
-        <th>Begin at</th>
-        <th>End at</th>
-        <th>History</th>
-        <th colspan="5"></th>
-      </tr>
+      <th>Course Name</th>
+      <th>Begin at</th>
+      <th>End at</th>
+      <th>History</th>
+      <th colspan="4"></th>
     </thead>
     <tbody>
     <% @courses.each do |course| %>
       <tr>
         <th>
-          <%= link_to course.name, course_path(course) %> &nbsp;
-        </th>
-        <th>
-          <%= course.description %> &nbsp;
+          <%= link_to course.name, user_course_path(@user, course) %> &nbsp;
         </th>
         <th>
           <%= course.begin_at %> &nbsp;

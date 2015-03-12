@@ -34,6 +34,8 @@
               <li><%= link_to "View Profile", current_user %></li>
               <li><%= link_to "Edit profile", edit_user_path(current_user) %></li>
               <li class="divider"></li>
+              <li><%= link_to "My Courses", user_courses_path(current_user) %></li>
+              <li class="divider"></li>
               <li>
                 <%= link_to "Log out", logout_path, method: "delete" %>
               </li>

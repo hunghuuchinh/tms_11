@@ -1,57 +1,61 @@
 <% provide(:title, 'All courses') %>
-<h1>Courses <%= @course.name %> Assigned</h1>
-<p>Name:<b><%= current_user.name %></b></p>
-<p>Email:<b><%= current_user.email %></b></p>
-<p>Course:<b><%= @course.name %></b></p>
-<p>Description:<b><%= @course.description %></b></p>
+<h1><%= @user.name %> Training progress in Courses <%= @course.name %></h1>
+<p>Name: <b><%= @user.name %></b></p>
+<p>Email: <b><%= @user.email %></b></p>
+<p>Course: <b><%= @course.name %></b></p>
+<p>Description: <b><%= @course.description %></b></p>
+<br>
 
 <table class="table">
   <div class="course">
-    <tr>
-      <th>
-        <b>Subject_ID</b>
-      </th>
-      <th>
-        <b>Name</b>
-      </th>
-      <th>
-        <b>Description</b>
-      </th>
-      <th>
-        <b>Task</b>
-      </th>
-      <th>
-        <b>Status</b>
-      </th>
-    </tr>
-    <% @course.subjects.each do |subject| %>
+    <thead>
+      <th><b>Subject Name</b></th>
+      <th><b>Subject Description</b></th>
+      <th><b>Task</b></th>
+      <th><b>Status</b></th>
+    </thead>
+    <% @course.subjects.each do |s| %>
       <tr>
-        <th>
-          <%= subject.id %> &nbsp;
+        <th style="color:blue">
+          <%= s.name %>
         </th>
-        <th>
-          <%= link_to subject.name, subject_path(subject) %> &nbsp;
+        <th style="color:blue">
+          <%= s.description %> &nbsp;
         </th>
-        <th>
-          <%= subject.description %> &nbsp;
+        <th style="color:blue">
+          <%= s.tasks.count %> task(s)
         </th>
-        <th>
-        </th>
-        <th>
+        <% us = UserSubject.find_by user: @user, subject: s,
+                                    course_id: @course.id %>
+        <th style="color:blue">
+          <% if us.status.nil? || us.status == 0 %>
+            Not Started yet!
+          <% elsif us.status == 1 %>
+            In training!
+          <% elsif us.status == 2 %>
+            Finished!
+          <% else %>
+            N/A
+          <% end %>
         </th>
       </tr>
-      <% subject.tasks.each do |task| %>
+      <% s.tasks.each do |task| %>
         <tr>
+          <th></th>
+          <th></th>
+          <th><%= task.name %></th>
           <th>
-          </th>
-          <th>
-          </th>
-          <th>
-          </th>
-          <th>
-            <%= link_to task.name, "#" %> &nbsp;
-          </th>
-          <th>
+            <% ut = UserTask.find_by user: @user, task: task,
+                          course_id: @course.id %>
+            <% if us.status.nil? || us.status == 0 || us.status == 2 %>
+              <br>
+            <% elsif ut.status == 1 %>
+              In training!
+            <% elsif ut.status == 2 %>
+              Finished!
+            <% else %>
+              N/A
+            <% end %>
           </th>
         </tr>
       <% end %>

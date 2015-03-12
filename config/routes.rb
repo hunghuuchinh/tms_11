@@ -34,7 +34,6 @@ Rails.application.routes.draw do
     end
 
     resources :subjects
-    resources :course_users
   end
   resources :courses
   resources :activitys

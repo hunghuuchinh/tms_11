@@ -9,6 +9,7 @@ class CreateUserSubjects < ActiveRecord::Migration
     end
     add_index :user_subjects, :subject_id
     add_index :user_subjects, :user_id
-    add_index :user_subjects, [:subject_id, :user_id], unique: true
+    add_index :user_subjects, :course_id
+    add_index :user_subjects, [:subject_id, :user_id, :course_id], unique: true
   end
 end

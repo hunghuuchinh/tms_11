@@ -1,6 +1,7 @@
 class Admin::CoursesController < ApplicationController
   before_action :logged_in_user
   before_action :is_admin_user, only: [:create, :destroy, :new]
+  before_action :editable_course, only: [:edit]
 
   def new
     @course = Course.new
@@ -73,6 +74,14 @@ class Admin::CoursesController < ApplicationController
     users.each do |u|
       act = u.activities.new act_type: "assigned"
       act.save
+    end
+  end
+
+  def editable_course
+    @course = Course.find params[:id]
+    if !@course.begin_at.nil? || !@course.end_at.nil?
+      flash[:danger] = "Course is in training or finished! Cannot edit"
+      redirect_to admin_course_path(@course)
     end
   end
 end

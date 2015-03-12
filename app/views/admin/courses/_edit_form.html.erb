@@ -11,21 +11,6 @@
     <%= f.text_area :description %>
   </div>
 
-  <div>
-    <table class="table">
-      <th>
-        <%= f.label :begin_at %>
-        <%= f.date_select :begin_at, start_year: Date.current.year,
-               end_year: Date.current.year + 5, class: 'form-control' %>
-      </th>
-      <th>
-        <%= f.label :end_at %>
-        <%= f.date_select :end_at, start_year: Date.current.year,
-                end_year: Date.current.year + 5, class: 'form-control' %>
-      </th>
-    </table>
-  </div>
-
   <p>
     Choice Subjects for Course
   </p>

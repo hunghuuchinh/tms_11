@@ -48,8 +48,11 @@ class User < ActiveRecord::Base
   scope :free_user, ->{includes(:assignments).where(assignments: {user_id: nil})} 
   scope :in_course, ->(course) {includes(:assignments)
     .where(assignments: {course: course, status: [0, 1]})}
+  scope :in_other, ->(course) {includes(:assignments)
+    .where.not(assignments: {course: !course, status: [nil, 2]})}
   scope :finished_all_courses, ->{includes(:assignments)
     .where(assignments: {status: 2})}
   scope :assignable, ->(course) {
-    User.in_course(course) + User.free_user + User.finished_all_courses}
+    User.in_course(course) | User.free_user | User.finished_all_courses -
+                                              User.in_other(course)}
 end

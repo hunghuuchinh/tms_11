@@ -7,5 +7,9 @@ class CreateUserTasks < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :user_tasks, :task_id
+    add_index :user_tasks, :user_id
+    add_index :user_tasks, :course_id
+    add_index :user_tasks, [:task_id, :user_id, :course_id], unique: true    
   end
 end
